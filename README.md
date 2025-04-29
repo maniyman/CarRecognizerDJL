@@ -55,6 +55,3 @@ Das Docker-Image wird in Azure Container Registry hochgeladen und als Web App ü
 
 ---
 
-## Autor
-
-- Dein Name (ft. ChatGPT 😄)
