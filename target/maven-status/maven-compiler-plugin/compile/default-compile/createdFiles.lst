@@ -1,0 +1,3 @@
+main\java\com\carrecognizer\CarRecognizerApplication.class
+main\java\com\carrecognizer\PredictionController.class
+main\java\com\carrecognizer\PredictionController$MyTranslator.class

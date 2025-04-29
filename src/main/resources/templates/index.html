@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Auto-Marken Erkennung</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: auto;
+            padding: 2em;
+        }
+        input, button {
+            font-size: 1em;
+            margin-top: 0.5em;
+        }
+        img {
+            max-width: 100%;
+            margin-top: 1em;
+            display: none;
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+        .result {
+            margin-top: 2em;
+            background: #e0ffe0;
+            padding: 1em;
+            border: 1px solid #0a0;
+        }
+        .error {
+            margin-top: 2em;
+            background: #ffe0e0;
+            padding: 1em;
+            border: 1px solid #c00;
+            color: #c00;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Auto-Marke erkennen</h2>
+
+<form method="post" action="/predict" enctype="multipart/form-data" id="uploadForm">
+    <input type="file" name="file" accept="image/*" required onchange="previewImage(event)" />
+    <br>
+    <button type="submit">Bild analysieren</button>
+</form>
+
+<img id="preview" alt="Vorschau des Bildes" />
+
+<!-- Ergebnisanzeige -->
+<div class="result" th:if="${result}">
+    <h3>Erkannte Marke(n):</h3>
+    <pre th:text="${result}"></pre>
+</div>
+
+<!-- Fehleranzeige -->
+<div class="error" th:if="${result == null}">
+    <p>⚠️ Hinweis: Stelle sicher, dass du ein gültiges Bild unter 10 MB hochlädst!</p>
+</div>
+
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById("preview");
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.display = "none";
+            preview.src = "";
+        }
+    }
+</script>
+
+</body>
+</html>
